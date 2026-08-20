@@ -1,0 +1,12 @@
+/.pnpm-store/
+/output/
+/tmp/
+
+/site/node_modules/
+/site/dist/
+/site/output/
+/site/tmp/
+/site/qa-*.png
+/site/current-*.png
+/site/audit-*.png
+/site/reference-*.png
