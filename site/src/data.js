@@ -113,7 +113,7 @@ export const projects = [
       { value: "6", zh: "产品闭环步骤", en: "Loop stages" },
       { value: "Local", zh: "端侧实时推理", en: "On-device inference" },
     ],
-    url: "https://posture-pal-2jc4.vercel.app/",
+    url: "https://wqw845950341-cell.github.io/posturepal-portfolio/",
     stages: {
       zh: ["摄像头校准", "姿态识别", "持续性判断", "分级提醒", "专注结算", "成长反馈"],
       en: ["Calibration", "Pose detection", "Persistence", "Tiered nudge", "Focus review", "Growth"],
