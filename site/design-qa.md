@@ -60,3 +60,22 @@ Functional browser checks in `qa/refresh/results.json` pass: five projects, real
 No actionable P0/P1/P2 findings remain in the reviewed refresh. P3: the retained original case pages have more extensive interactive layouts than the new card-led homepage. Physical-device Safari/Firefox were not tested. GitHub publication is explicitly requested and uses the existing Pages workflow.
 
 final result: passed
+
+## Five simultaneous nebulae and unified project tabs — 2026-11-05
+
+This section supersedes the earlier three-center/aliased extension. Source visual truth remains the original particle homepage at commit `00fa758`, captured in `references/refresh/original-live.png`, plus the user's explicit request for five simultaneous nebulae and matching project tabs. No homepage redesign was introduced.
+
+Evidence: `qa/five-nebulae/desktop.png`, `selected-4.png`, `selected-5.png`, `case-live-motion.png`, `case-4.png`, `case-5.png`, and `mobile.png`. The combined `comparison.png` places source and implementation together at identical 1440×1000 CSS/pixel sizes, deviceScaleFactor 1; focused `comparison-hero.png` and `comparison-navigation.png` were opened alongside it. Mobile captures use 390×844 CSS pixels. The baseline source had reduced motion and an existing empty-canvas bug; the final full-motion capture intentionally shows the restored particle field. Different animation frames are not treated as visual drift.
+
+Findings and iteration history:
+- [P1, fixed] Newly added projects previously reused an existing nebula and hid its original label. The field now builds five separate center/color groups, all five node labels and evidence tags remain visible under every selection, and every center independently selects its own project.
+- [P1, fixed] New cases previously used a separate static layout. Both now render the original CaseStudy shell with five project tabs, live pointer-reactive particle Canvas, four selectable workflow nodes, shared insight panel, four scroll-linked chapters and original navigation. Real artifacts and supplied video remain available below the hero.
+- [P2, fixed] An opaque preview initially concealed the new case particle field. Moving the live field into the shared hero reveals it around the workflow without compromising copy contrast; `case-live-motion.png` documents the fix.
+- [P2, fixed] Canvas ResizeObserver cleared static reduced-motion frames. Static fields now repaint after resize. Reduced motion retains five visible nebulae while full motion retains live frame changes and pointer response.
+- [P2, fixed] Teddi's expanded node controls collided with the lower status row. The node was raised, with `selected-4.png` documenting separation. Mobile uses the existing bottom sheet and five tabs; new case flow controls use four columns and natural content height.
+
+Required fidelity surfaces: the requested sans-serif/黑体 stack and original hierarchy are retained; original hero, navigation, draggable note and dock spacing remain recognizable; existing violet/amber/emerald colors are retained with distinct rose and blue for the additions; original project images/video are sharp and contained; all added content remains bilingual and describes proposal/prototype scope without invented commercial results. Moving the new labels and shrinking individual nebula radii are intentional five-project extensions. All five labels are simultaneously visible on desktop and mobile. No actionable P0/P1/P2 findings remain.
+
+Verification: `qa/five-nebulae/results.json` records five-center hit tests, five-project selection, shared case routes and tabs, workflow and chapter interactions, galleries, supplied video playback, cross-project stage reset, command search, six viewport widths, mobile demo links, bilingual/light theme controls, live Canvas frames and zero page/network errors. Production build and all four existing hosting tests passed. Physical-device Safari/Firefox were not tested.
+
+final result: passed

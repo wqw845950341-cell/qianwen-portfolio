@@ -1,3 +1,4 @@
+import { ExtendedProjectSystem } from './ExtendedProjectSystem';
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowsLeftRight,
@@ -806,6 +807,7 @@ export function StreetMapProduct({ lang, selectedStage = 1, reducedMotion = fals
 }
 
 export function ProjectArtifact({ projectId, lang, selectedStage, reducedMotion, onSelectStage }) {
+  if(projectId>=4)return <ExtendedProjectSystem projectId={projectId} lang={lang} selectedStage={selectedStage} reducedMotion={reducedMotion}/>;
   if (projectId === 1) return <CommerceNetwork lang={lang} selectedStage={selectedStage} />;
   if (projectId === 2) return <PostureProduct lang={lang} selectedStage={selectedStage} reducedMotion={reducedMotion} onSelectStage={onSelectStage} />;
   return <StreetMapProduct lang={lang} selectedStage={selectedStage} reducedMotion={reducedMotion} onSelectStage={onSelectStage} />;

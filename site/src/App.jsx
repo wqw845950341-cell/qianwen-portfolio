@@ -1,5 +1,5 @@
+import { ExtendedProjectMedia } from './ExtendedProjectSystem';
 import { refreshProjects } from './refresh-data.js';
-import { AddedCase } from './PortfolioRefresh.jsx';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDown,
@@ -595,9 +595,10 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
   };
 
   return (
-    <main className={`screen case-screen case-${project.accent} ${project.id === 2 ? "case-posturepal" : project.id === 3 ? "case-streetgreening" : ""}`} style={{ "--accent": project.color }}>
+    <main className={`screen case-screen case-${project.accent} ${project.id === 2 ? "case-posturepal" : project.id === 3 ? "case-streetgreening" : project.id >= 4 ? "case-extended" : ""}`} style={{ "--accent": project.color }}>
       <section className="case-hero">
         <div className="case-atmosphere" aria-hidden="true" />
+        {project.id >= 4 && <div className="extended-case-field"><ParticleField variant="project" activeProject={project.id} reducedMotion={reducedMotion} light={theme === "light"} /></div>}
         <aside className="case-index">
           {projects.map((item) => (
             <button key={item.id} className={project.id === item.id ? "active" : ""} onClick={() => setProject(item.id)}><span>0{item.id}</span><small>{project.id === item.id ? item.id === 2 ? "PosturePal" : item.id === 3 ? "HCMC Street Greening" : item.title.zh.slice(0, 10) : ""}</small></button>
@@ -661,7 +662,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
           {project.id === 3 && <StreetProgressField active={activeProgress} reducedMotion={reducedMotion} />}
           {project.chapters.map((chapter, index) => <button key={chapter.id} onClick={() => scrollToChapter(index)} className={index === activeProgress ? "active" : ""}><span>{project.id === 2 ? <><strong>{postureProgress[index]?.en}</strong><small>{postureProgress[index]?.zh}</small></> : project.id === 3 ? <><strong>{streetProgress[index]?.en}</strong><small>{streetProgress[index]?.zh}</small></> : chapter.label[lang]}</span><i /></button>)}
         </div>
-        <div className="case-hints"><span><CursorClick size={17} />{project.id === 1 ? (lang === "zh" ? "点击流程查看诊断逻辑" : "Inspect the diagnostic flow") : project.id === 2 ? (lang === "zh" ? "姿态关键点显示实时判断" : "Landmarks expose live reasoning") : (lang === "zh" ? "切换 Before / Strategy 情景" : "Toggle Before / Strategy")}</span><span><SquaresFour size={17} />1 / 2 / 3 {lang === "zh" ? "切换项目" : "switch projects"}</span><button onClick={() => scrollToChapter(0)}><ArrowDown size={17} />{lang === "zh" ? "滚动深入案例" : "Scroll into the case"}</button></div>
+        <div className="case-hints"><span><CursorClick size={17} />{project.id === 1 ? (lang === "zh" ? "点击流程查看诊断逻辑" : "Inspect the diagnostic flow") : project.id === 2 ? (lang === "zh" ? "姿态关键点显示实时判断" : "Landmarks expose live reasoning") : project.id >= 4 ? (lang === "zh" ? "点击流程查看项目逻辑" : "Explore the project workflow") : (lang === "zh" ? "切换 Before / Strategy 情景" : "Toggle Before / Strategy")}</span><span><SquaresFour size={17} />1 / 2 / 3 / 4 / 5 {lang === "zh" ? "切换项目" : "switch projects"}</span><button onClick={() => scrollToChapter(0)}><ArrowDown size={17} />{lang === "zh" ? "滚动深入案例" : "Scroll into the case"}</button></div>
       </section>
 
       <section className="case-depth">
@@ -669,6 +670,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
           <span>0{project.id} · {project.id === 2 ? "PosturePal" : project.title[lang]}</span>
           <div>{project.chapters.map((chapter, index) => <button key={chapter.id} onClick={() => scrollToChapter(index)} className={activeProgress === index ? "active" : ""}>0{index + 1} {chapter.label[lang]}</button>)}</div>
         </nav>
+        {project.id>=4 && <ExtendedProjectMedia id={project.id} lang={lang}/>}
         {project.chapters.map((chapter, index) => (
           <section key={chapter.id} id={`chapter-${project.id}-${chapter.id}`} data-case-chapter={index} className="case-chapter" data-reveal>
             <aside><span>0{index + 1}</span><small>{chapter.label[lang]}</small></aside>
@@ -1050,8 +1052,7 @@ export function App() {
       <audio ref={audioRef} src={`${import.meta.env.BASE_URL}assets/time-machine.mp3`} loop preload="none" />
       <Header view={view} navigate={navigate} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} openCommand={() => setCommandOpen(true)} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       {view === "home" && <Home lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
-      {view === "project" && activeProject < 4 && <CaseStudy project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
-      {view === "project" && activeProject >= 4 && <AddedCase id={activeProject} lang={lang} openProject={openProject} navigate={navigate}/>}
+      {view === "project" && <CaseStudy key={activeProject} project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
       {view === "journey" && <Journey lang={lang} reducedMotion={reducedMotion} theme={theme} />}
       {view === "ai" && <AICapabilities lang={lang} reducedMotion={reducedMotion} theme={theme} openProject={openProject} />}
       {view === "notes" && <Notes lang={lang} reducedMotion={reducedMotion} theme={theme} />}

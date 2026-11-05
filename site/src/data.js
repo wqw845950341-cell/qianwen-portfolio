@@ -268,7 +268,13 @@ export const projects = [
 ];
 
 
-for (const p of refreshProjects.filter(item => item.id >= 4)) projects.push({id:p.id,slug:p.key,title:p.title,color:p.id===4?'#ac83ff':'#8b7dff',accent:'violet',year:'2026',url:p.url,short:p.headline,summary:p.context,tags:p.id===4?['Brand Strategy','AI Creative','Campaign']:['Search Ads','Evidence','Experiment'],role:p.role,signal:[{value:'04',zh:'功能环节',en:'Workflow stages'}],stages:{zh:p.steps.map(s=>s.label.zh),en:p.steps.map(s=>s.label.en)},stageDetails:p.steps.map(s=>({...s.detail,metaZh:'产品原型',metaEn:'Product prototype'})),metrics:[],chapters:[]});
+for (const p of refreshProjects.filter(item => item.id >= 4)) projects.push({id:p.id,slug:p.key,title:p.title,color:p.id===4?'#d99fc4':'#7bbbdc',accent:'violet',year:'2026',url:p.url,short:p.headline,summary:p.context,tags:p.id===4?['Brand Strategy','AI Creative','Campaign']:['Search Ads','Evidence','Experiment'],role:p.role,signal:[{value:'04',zh:'功能环节',en:'Workflow stages'}],stages:{zh:p.steps.map(s=>s.label.zh),en:p.steps.map(s=>s.label.en)},stageDetails:p.steps.map(s=>({...s.detail,metaZh:'产品原型',metaEn:'Product prototype'})),metrics:[],chapters:[]});
+
+for(const p of refreshProjects.filter(p=>p.id>=4)) {
+ const project=projects.find(item=>item.id===p.id);
+ project.metrics=[{value:'04',zh:'产品流程环节',en:'Workflow stages'},{value:p.id===4?'Concept':'Prototype',zh:p.id===4?'独立未执行提案':'独立功能原型',en:p.id===4?'Independent proposal':'Independent prototype'},{value:'ZH / EN',zh:'双语案例',en:'Bilingual case'}];
+ project.chapters=p.notes.map((note,i)=>({id:['context','system','decisions','validation'][i],label:p.steps[i].label,title:note.title,intro:note.text,cards:[{value:'01',zh:p.steps[i].detail.zh,en:p.steps[i].detail.en},{value:'02',zh:p.delivery[i%p.delivery.length].zh,en:p.delivery[i%p.delivery.length].en},{value:'03',zh:i===3?p.nextTest.zh:p.validation.zh,en:i===3?p.nextTest.en:p.validation.en}]}));
+}
 
 export const journey = [
   {

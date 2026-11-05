@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4200/",
+  "checks": [
+    "Five distinct canvas centers, all five labels and evidence entries remain visible under every selection; original home and sans fonts preserved",
+    "Each nebula independently selects its own project through canvas hit testing",
+    "All five shared CaseStudy routes and project tabs; new cases have live Canvas, four working workflow states, four scroll-linked chapters, artifact gallery and original video playback",
+    "Cross-project stage reset, command palette and five project links",
+    "Six responsive widths, five mobile tabs and demo links, mobile case layout, English and light theme",
+    "Live frame changes on home and both new cases with pointer input; reduced motion remains supported"
+  ],
+  "errors": []
+}

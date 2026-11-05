@@ -9,18 +9,9 @@ const PALETTES = {
 
 function centersFor(variant, width, height, activeProject) {
   if (variant === "home") {
-    if (width < 760) {
-      return [
-        { x: width * 0.28, y: height * 0.44, color: activeProject === 4 ? [180,142,223] : PALETTES.violet, key: activeProject === 4 ? 4 : 1 },
-        { x: width * 0.72, y: height * 0.48, color: PALETTES.amber, key: 2 },
-        { x: width * 0.32, y: height * 0.62, color: activeProject === 5 ? [119,174,219] : PALETTES.emerald, key: activeProject === 5 ? 5 : 3 },
-      ];
-    }
-    return [
-      { x: width * 0.32, y: height * 0.61, color: activeProject === 4 ? [180,142,223] : PALETTES.violet, key: activeProject === 4 ? 4 : 1 },
-      { x: width * 0.68, y: height * 0.29, color: PALETTES.amber, key: 2 },
-      { x: width * 0.68, y: height * 0.69, color: activeProject === 5 ? [119,174,219] : PALETTES.emerald, key: activeProject === 5 ? 5 : 3 },
-    ];
+    const positions=width<760?[[.25,.40],[.73,.44],[.35,.51],[.24,.58],[.82,.56]]:[[.32,.61],[.68,.29],[.68,.69],[.27,.80],[.84,.48]];
+    const colors=[PALETTES.violet,PALETTES.amber,PALETTES.emerald,[217,159,196],[123,187,220]];
+    return positions.map(([x,y],i)=>({x:width*x,y:height*y,color:colors[i],key:i+1}));
   }
   if (variant === "journey") {
     return [
@@ -46,7 +37,7 @@ function centersFor(variant, width, height, activeProject) {
       { x: width * 0.48, y: height * 0.53, color: PALETTES.violet, key: 4 },
     ];
   }
-  const colors = [PALETTES.violet, PALETTES.amber, PALETTES.emerald];
+  const colors = [PALETTES.violet, PALETTES.amber, PALETTES.emerald,[217,159,196],[123,187,220]];
   return [{ x: width * 0.61, y: height * 0.52, color: colors[activeProject - 1] || PALETTES.violet, key: activeProject }];
 }
 
@@ -88,7 +79,7 @@ export function ParticleField({
         const seed = Math.abs(Math.sin((i + 1) * 12.9898) * 43758.5453) % 1;
         const seed2 = Math.abs(Math.sin((i + 1) * 78.233) * 12345.6789) % 1;
         const seed3 = Math.abs(Math.sin((i + 1) * 39.425) * 96321.421) % 1;
-        const radius = (12 + Math.pow(seed2, 0.72) * Math.min(width, height) * (mobile ? 0.21 : 0.31));
+        const radius = (12 + Math.pow(seed2, 0.72) * Math.min(width, height) * (mobile ? (variant === "home" ? 0.14 : 0.21) : (variant === "home" ? 0.20 : 0.31)));
         const arms = variant === "home" ? 10 : 8;
         const angle = Math.floor(seed * arms) * (Math.PI * 2 / arms) + radius * 0.017 + (seed3 - 0.5) * 0.26;
         const stretch = variant === "home" ? 1.35 : variant === "journey" ? 1.6 : 1.15;
@@ -199,7 +190,12 @@ export function ParticleField({
 
     resize();
     draw(0);
-    const resizeObserver = new ResizeObserver(resize);
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      // Resizing clears the canvas buffer. A static reduced-motion field
+      // needs an explicit repaint because it has no animation frame loop.
+      if (reducedMotion) draw(0);
+    });
     resizeObserver.observe(canvas);
 
     const move = (event) => {
@@ -261,5 +257,5 @@ export function ParticleField({
     };
   }, [variant, activeProject, reducedMotion, light, onSelectProject]);
 
-  return <canvas ref={canvasRef} className="particle-field" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="particle-field" data-nebula-count={variant === "home" ? 5 : 1} aria-hidden="true" />;
 }
