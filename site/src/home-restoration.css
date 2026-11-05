@@ -1,0 +1,18 @@
+/* Preserve the original particle-home composition; extend its project indices. */
+.home-signal-rail{grid-template-columns:auto repeat(5,minmax(0,1fr));gap:15px}
+.home-hero h1{font-weight:500;letter-spacing:-.025em}
+.project-node-4,.project-node-5{display:none}
+.selected-project-4 .project-node-1,.selected-project-5 .project-node-3{display:none}
+.selected-project-4 .project-node-4{display:grid;left:10%;top:58%}
+.selected-project-5 .project-node-5{display:grid;left:57%;top:64%}
+.home-artifact-4,.home-artifact-5{left:64%;top:42%;width:200px;color:#ac94d2}
+.home-artifact-4 img,.home-artifact-5 img{height:118px;object-fit:contain;border-radius:5px}
+.evidence-tag-4,.evidence-tag-5{display:none}
+.selected-project-4 .evidence-tag-1,.selected-project-5 .evidence-tag-3{display:none}
+.selected-project-4 .evidence-tag-4{display:grid;left:29%;top:71%}
+.selected-project-5 .evidence-tag-5{display:grid;left:72%;top:73%}
+.home-demo-link{grid-column:1/-1;justify-self:start;display:inline-flex;align-items:center;gap:7px;color:var(--accent);font-size:10px;margin-top:7px}
+.node-actions .node-demo{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:9px;padding:7px 9px;border:1px solid var(--faint);border-radius:999px;background:rgba(4,6,12,.44)}
+@media(max-width:1200px) and (min-width:760px){.home-signal-rail{gap:10px}.home-signal-rail button{gap:5px}.home-signal-rail button strong{font-size:9px}.home-signal-rail button small{display:none}.selected-project-5 .project-node-5{left:55%}.home-demo-link{font-size:9px}}
+@media(max-width:759px){.home-hero h1{font-size:35px;font-weight:500}.project-node-4,.project-node-5{display:none}.selected-project-4 .project-node-4{left:9%;top:41%}.selected-project-5 .project-node-5{left:13%;top:59%}.home-artifact-4,.home-artifact-5{display:none}.evidence-tag-4,.evidence-tag-5,.selected-project-4 .evidence-tag-4,.selected-project-5 .evidence-tag-5{display:none}.mobile-sheet-actions{display:flex;gap:8px;flex-wrap:wrap}.mobile-sheet-actions>a{display:inline-flex;align-items:center;justify-content:center;gap:7px;color:var(--accent);font-size:11px;border:1px solid color-mix(in srgb,var(--accent) 60%,var(--line));border-radius:999px;min-height:36px;padding:7px 11px}.swipe-index button{font-size:10px!important;padding-inline:7px!important}.mobile-project-sheet .sheet-title strong{font-size:20px}.mobile-project-sheet .tag-row{margin-block:10px}.mobile-project-sheet>p{font-size:12px}.mobile-sheet-actions button{font-size:11px!important;padding-inline:10px!important}}
+@media(min-width:760px){.selected-project-5 .evidence-tag-5{left:80%;top:77%}}

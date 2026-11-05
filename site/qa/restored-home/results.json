@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4200/",
+  "checks": [
+    "Original Home component, composition and particle canvas; five-project rail, index, evidence and direct demo links",
+    "Teddi / RedLens routes, numeric shortcuts and command search",
+    "Six responsive widths; mobile selection, evidence sheet, demo and routes; English and light mode",
+    "Live Canvas frames and pointer response retained"
+  ],
+  "errors": []
+}

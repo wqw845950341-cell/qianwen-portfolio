@@ -1,5 +1,13 @@
 # Portfolio refresh — 2026-11-05
 
+## Current correction: original homepage restored
+
+The user clarified that the original homepage composition must be retained. The pre-refresh particle `Home` component is active again, with the same hero text, original three project positions, navigation, canvas gestures, evidence card and bottom dock. The top and side indices now expose all five projects. Teddi Lab and RedLens reuse an existing spatial project position when selected so the page does not become crowded. Their evidence notes, real media previews, numeric shortcuts, case routes and direct demo links work within that original system.
+
+Sans-serif / 黑体 typography and the verified demo destinations below remain. The CodeCraft-style homepage is no longer rendered. The two added case studies and hosted RedLens demo remain available. The original broken root-relative home-artifact image paths are now deployment-base-aware.
+
+Restoration checks: `qa/restored-home/results.json`. Original hero position measured against the 1440×1000 pre-refresh capture. Combined visual comparison: `qa/restored-home/comparison.png`. Five-project selection, case navigation, command search, mobile evidence sheet, English, light mode, live Canvas animation/pointer response and six viewport widths passed.
+
 Updated the existing `wqw845950341-cell/qianwen-portfolio` site, based on the user's supplied CodeCraft-style screenshot: navy background, violet accents, sans-serif headings, layered project previews and a three-column project index. The original Journey, AI, Notes, About and first three case routes remain available.
 
 ## Projects and verified destinations

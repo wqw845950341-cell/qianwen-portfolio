@@ -11,15 +11,15 @@ function centersFor(variant, width, height, activeProject) {
   if (variant === "home") {
     if (width < 760) {
       return [
-        { x: width * 0.28, y: height * 0.44, color: PALETTES.violet, key: 1 },
+        { x: width * 0.28, y: height * 0.44, color: activeProject === 4 ? [180,142,223] : PALETTES.violet, key: activeProject === 4 ? 4 : 1 },
         { x: width * 0.72, y: height * 0.48, color: PALETTES.amber, key: 2 },
-        { x: width * 0.32, y: height * 0.62, color: PALETTES.emerald, key: 3 },
+        { x: width * 0.32, y: height * 0.62, color: activeProject === 5 ? [119,174,219] : PALETTES.emerald, key: activeProject === 5 ? 5 : 3 },
       ];
     }
     return [
-      { x: width * 0.32, y: height * 0.61, color: PALETTES.violet, key: 1 },
+      { x: width * 0.32, y: height * 0.61, color: activeProject === 4 ? [180,142,223] : PALETTES.violet, key: activeProject === 4 ? 4 : 1 },
       { x: width * 0.68, y: height * 0.29, color: PALETTES.amber, key: 2 },
-      { x: width * 0.68, y: height * 0.69, color: PALETTES.emerald, key: 3 },
+      { x: width * 0.68, y: height * 0.69, color: activeProject === 5 ? [119,174,219] : PALETTES.emerald, key: activeProject === 5 ? 5 : 3 },
     ];
   }
   if (variant === "journey") {

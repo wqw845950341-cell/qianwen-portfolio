@@ -39,6 +39,16 @@
 
 final result: passed
 
+## Homepage restoration after explicit user correction
+
+The latest request restores the original particle homepage, not the CodeCraft-style redesign. Source truth is commit `00fa758` and its actual live capture `references/refresh/original-live.png`. Implementation captures are in `qa/restored-home/`, at 1440×1000 desktop and 390×844 mobile. The normalized combined `comparison.png` was opened and reviewed. The hero, three original project locations, particle field, navigation, evidence card and dock retain their original composition. Only the requested sans-serif font, five-project indices, added-project content, corrected links and repaired asset paths differ intentionally.
+
+The new projects occupy an existing spatial slot when selected; all five remain available in the visible top/side indices and mobile selector. This preserves the original composition without adding overlapping clusters. A long RedLens note was shortened and its evidence tag shifted after visual review so it does not obscure its project label or Demo action. Post-fix captures and the passing `qa/restored-home/results.json` record the change.
+
+Typography, original dark tokens, spacing, image sharpness and scope copy were checked. No actionable P0/P1/P2 findings remain in this correction. Tests cover all project selections, new evidence, direct demo actions, numeric shortcuts, both new cases, command search, 320/390/760/946/1100/1440 px layouts, mobile evidence and routing, English/light modes, and actual moving/pointer-responsive Canvas frames. The first motion-only check inherited the reduced-motion context; explicit media emulation corrected the test setup and the live Canvas passed. Browser errors and HTTP failures: none.
+
+final result: passed
+
 ## Live-site refresh — 2026-11-05
 
 Latest user direction supersedes the particle-led homepage. Source: supplied CodeCraft-style screenshot, retained locally in `references/refresh/style-reference.png`. Baseline: `references/refresh/original-live.png`. The redesigned homepage preserves existing internal routes and adds Teddi Lab and RedLens.

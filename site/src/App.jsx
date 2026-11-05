@@ -1,4 +1,5 @@
-import { RefreshedHome, AddedCase } from './PortfolioRefresh.jsx';
+import { refreshProjects } from './refresh-data.js';
+import { AddedCase } from './PortfolioRefresh.jsx';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDown,
@@ -121,6 +122,11 @@ const FIELD_NOTES = {
     impactEn: "Street units",
     evidence: "A–E system",
   },
+};
+
+for (const p of refreshProjects.filter(p => p.id >= 4)) FIELD_NOTES[p.id] = {
+ problem:p.context, decision:p.approach, learned:p.id===4?{zh:"用同一主题连接不同场景，让每种内容形式承担明确任务。独立提案，尚未执行。",en:"One idea, with a clear job for each format. An independent, unexecuted proposal."}:{zh:"保留使用限制与缺失依据，结合成本、目标行为和体验衡量商业价值。",en:"Keep limitations visible; evaluate target actions, cost and user experience together."},
+ impact:'4 steps',impactZh:p.id===4?'独立内容策划体系':'独立商业化产品原型',impactEn:p.id===4?'Independent content system':'Independent commercial prototype',evidence:p.id===4?'Campaign concept':'Working prototype'
 };
 
 const JOURNEY_CAPABILITY_AXES = [
@@ -289,7 +295,7 @@ function Header({ view, navigate, lang, setLang, theme, setTheme, openCommand, m
           <button
             key={`${target}-${label}`}
             className={((view === target) || (view === "project" && target === "home")) && label !== "Contact" ? "active" : ""}
-            onClick={() => navigate(target, label === "Contact" ? "contact" : label === "Work" ? "selected-work" : undefined)}
+            onClick={() => navigate(target, label === "Contact" ? "contact" : undefined)}
           >
             {label}
           </button>
@@ -342,7 +348,7 @@ function ProjectNode({ project, active, onSelect, onOpen, onEvidence, lang }) {
       {active && (
         <span className="node-actions">
           <button className="node-evidence" onClick={() => onEvidence(project.id)}>{lang === "zh" ? "查看证据" : "View evidence"}<ArrowSquareOut size={13} /></button>
-          <button className="node-open" onClick={() => onOpen(project.id)}>{lang === "zh" ? "完整案例" : "Full case"}<ArrowRight size={15} /></button>
+          <button className="node-open" onClick={() => onOpen(project.id)}>{lang === "zh" ? "完整案例" : "Full case"}<ArrowRight size={15} /></button><a className="node-demo" href={project.url} target="_blank" rel="noreferrer">Demo<ArrowSquareOut size={12}/></a>
         </span>
       )}
     </div>
@@ -371,7 +377,7 @@ function EvidenceCard({ project, lang, onClose, onOpenProject, position, onDragS
         ))}
       </div>
       <footer className="field-note-impact">
-        <span><small>IMPACT</small><strong>{note.impact}</strong></span>
+        <span><small>PROJECT SCOPE</small><strong>{note.impact}</strong></span>
         <span><small>{note.evidence}</small><p>{lang === "zh" ? note.impactZh : note.impactEn}</p></span>
         <button onClick={() => onOpenProject(project.id)}>{lang === "zh" ? "进入完整案例" : "Open full case"}<ArrowRight size={15} /></button>
       </footer>
@@ -440,7 +446,7 @@ function Home({ lang, activeProject, setActiveProject, openProject, navigate, co
   }, []);
 
   return (
-    <main className={`screen home-screen ${evidenceOpen ? "evidence-open" : ""}`} onPointerMove={moveNote} onPointerUp={endNoteDrag} onPointerCancel={endNoteDrag}>
+    <main className={`screen home-screen selected-project-${activeProject} ${evidenceOpen ? "evidence-open" : ""}`} onPointerMove={moveNote} onPointerUp={endNoteDrag} onPointerCancel={endNoteDrag}>
       <ParticleField
         variant="home"
         activeProject={activeProject}
@@ -501,14 +507,14 @@ function Home({ lang, activeProject, setActiveProject, openProject, navigate, co
       <aside className="interaction-legend" aria-label="Interaction hints">
         <p><Hand size={19} /><span>拖拽<br /><small>探索画布</small></span></p>
         <p><Compass size={19} /><span>滚轮<br /><small>切换景深</small></span></p>
-        <p><SquaresFour size={19} /><span>1 / 2 / 3<br /><small>快速切换项目</small></span></p>
+        <p><SquaresFour size={19} /><span>1 / 2 / 3 / 4 / 5<br /><small>快速切换项目</small></span></p>
         <p><Command size={18} /><span>⌘K<br /><small>打开命令面板</small></span></p>
       </aside>
 
       <aside className="home-status" style={{ "--accent": active.color }}>
         <span><i />SELECTED SIGNAL · 0{active.id}</span>
         <strong>{active.role[lang]}</strong>
-        <button onClick={() => openProject(active.id)}>{lang === "zh" ? "进入完整案例" : "Open full case"}<ArrowRight size={16} /></button>
+        <button onClick={() => openProject(active.id)}>{lang === "zh" ? "进入完整案例" : "Open full case"}<ArrowRight size={16} /></button><a className="home-demo-link" href={active.url} target="_blank" rel="noreferrer">{lang === "zh" ? "打开 Demo 网站" : "Open live demo"}<ArrowSquareOut size={13}/></a>
       </aside>
 
       <div className="mobile-project-sheet" style={{ "--accent": active.color }}>
@@ -517,10 +523,11 @@ function Home({ lang, activeProject, setActiveProject, openProject, navigate, co
         <p>{active.short[lang]}</p>
         <div className="tag-row">{active.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
         <div className="mobile-sheet-actions">
+          <a href={active.url} target="_blank" rel="noreferrer">{lang === "zh" ? "打开 Demo" : "Live demo"}<ArrowSquareOut size={15}/></a>
           <button onClick={() => revealEvidence(active.id)}>{lang === "zh" ? "项目证据" : "Evidence"}<ArrowSquareOut size={17} /></button>
           <button onClick={() => openProject(active.id)}>{lang === "zh" ? "查看项目" : "View project"}<ArrowRight size={18} /></button>
         </div>
-        <div className="swipe-index">{projects.map((project) => <button key={project.id} className={project.id === active.id ? "active" : ""} onClick={() => setActiveProject(project.id)}>0{project.id}</button>)}</div>
+        <div className="swipe-index">{projects.map((project) => <button key={project.id} className={project.id === active.id ? "active" : ""} onClick={() => setActiveProject(project.id)}>{project.id>=4?`0${project.id} ${project.id===4?"Teddi":"RedLens"}`:`0${project.id}`}</button>)}</div>
       </div>
 
       <BottomDock {...controls} />
@@ -1042,7 +1049,7 @@ export function App() {
     <div className={`app theme-${theme} ${reducedMotion ? "reduced-motion" : ""}`}>
       <audio ref={audioRef} src={`${import.meta.env.BASE_URL}assets/time-machine.mp3`} loop preload="none" />
       <Header view={view} navigate={navigate} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} openCommand={() => setCommandOpen(true)} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      {view === "home" && <RefreshedHome lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
+      {view === "home" && <Home lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
       {view === "project" && activeProject < 4 && <CaseStudy project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
       {view === "project" && activeProject >= 4 && <AddedCase id={activeProject} lang={lang} openProject={openProject} navigate={navigate}/>}
       {view === "journey" && <Journey lang={lang} reducedMotion={reducedMotion} theme={theme} />}
