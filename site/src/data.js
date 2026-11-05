@@ -1,3 +1,4 @@
+import { refreshProjects } from './refresh-data.js';
 export const projects = [
   {
     id: 1,
@@ -25,7 +26,7 @@ export const projects = [
       { value: "6", zh: "闭环环节", en: "Workflow stages" },
       { value: "35%", zh: "V1 采纳率目标", en: "V1 adoption target" },
     ],
-    url: null,
+    url: "https://www.coze.cn/store/agent/7674848296376221738?bot_id=true",
     stages: {
       zh: ["数据接入", "经营看板", "异常诊断", "建议生成", "任务协同", "效果复盘"],
       en: ["Data ingestion", "Dashboard", "Diagnosis", "Recommendations", "Collaboration", "Impact review"],
@@ -196,22 +197,22 @@ export const projects = [
     tags: ["Urban Data", "GIS", "Decision Support"],
     role: { zh: "独立研究框架 · 数据分级 · 交互看板 · 策略工具", en: "Independent research framework · grading · dashboard · strategy toolkit" },
     signal: [
-      { value: "8,915", zh: "街道片段", en: "Street segments" },
+      { value: "8,915", zh: "研究样本点", en: "Research sample points" },
       { value: "A–E", zh: "分级体系", en: "Grading system" },
-      { value: "711", zh: "高风险片段", en: "Critical segments" },
+      { value: "2,128", zh: "高风险片段", en: "Critical segments" },
     ],
-    url: "https://streetgreening-dashboard-site.vercel.app/",
+    url: "https://wqw845950341-cell.github.io/HCMC-Street-Greening-Dashboard/",
     stages: {
       zh: ["城市数据", "街道分级 A–E", "类型诊断", "360° 场景比较", "策略工具"],
       en: ["Urban data", "Street grades A–E", "Typologies", "360° comparison", "Policy toolkit"],
     },
     metrics: [
-      { value: "8,915", zh: "街道片段", en: "Street segments" },
-      { value: "711", zh: "高风险等级 E", en: "Critical grade E" },
+      { value: "8,915", zh: "研究样本点", en: "Research sample points" },
+      { value: "2,128", zh: "高风险等级 E", en: "Critical grade E" },
       { value: "A–E", zh: "街道分级体系", en: "Street grading" },
     ],
     stageDetails: [
-      { zh: "整理街道片段、树冠、道路与场地背景，形成统一分析单位。", en: "Normalize street segments, canopy, road, and contextual data into a common unit of analysis.", metaZh: "底座 · 多源空间数据", metaEn: "Foundation · spatial data" },
+      { zh: "整理研究样本点、树冠、道路与场地背景，形成统一分析单位。", en: "Normalize street segments, canopy, road, and contextual data into a common unit of analysis.", metaZh: "底座 · 多源空间数据", metaEn: "Foundation · spatial data" },
       { zh: "以绿量、连续性与风险组合形成 A–E 级可解释分级。", en: "Combine canopy, continuity, and risk into an explainable A–E grading model.", metaZh: "评价 · 可解释分级", metaEn: "Assessment · explainable grades" },
       { zh: "从成功与危机样本中提炼可被复用的街道类型。", en: "Derive reusable street typologies from successful and critical examples.", metaZh: "诊断 · 类型模式", metaEn: "Diagnosis · typology patterns" },
       { zh: "在同一街段中切换现状与策略情景，理解空间变化与权衡。", en: "Compare current and strategy scenarios on the same segment to reveal spatial trade-offs.", metaZh: "比较 · 场景推演", metaEn: "Comparison · scenario testing" },
@@ -222,7 +223,7 @@ export const projects = [
         id: "context",
         label: { zh: "治理语境", en: "Context" },
         title: { zh: "城市级地图告诉我们“哪里”，街道级诊断回答“下一步做什么”。", en: "City-scale maps show where; street-level diagnosis reveals what to do next." },
-        intro: { zh: "宏观绿量无法直接支持现场行动。平台把分析单位下沉到街道片段，让每个片段拥有等级、类型、风险与策略。", en: "Aggregate canopy coverage does not directly guide field action. The platform moves analysis to street segments, each with a grade, typology, risk, and strategy." },
+        intro: { zh: "宏观绿量无法直接支持现场行动。平台把分析单位下沉到研究样本点，让每个片段拥有等级、类型、风险与策略。", en: "Aggregate canopy coverage does not directly guide field action. The platform moves analysis to street segments, each with a grade, typology, risk, and strategy." },
         cards: [
           { value: "8,915", zh: "统一街道分析单元", en: "Normalized street units" },
           { value: "Multi-source", zh: "融合道路、树冠与场地背景", en: "Road, canopy, and contextual layers" },
@@ -237,7 +238,7 @@ export const projects = [
         cards: [
           { value: "A–B", zh: "稳定与成功类型，可提炼经验", en: "Stable and successful patterns" },
           { value: "C–D", zh: "存在潜力，需要定向补足", en: "Opportunity areas needing targeted support" },
-          { value: "E · 711", zh: "高风险片段，进入优先治理", en: "Critical segments for priority action" },
+          { value: "E · 2,128", zh: "高风险片段，进入优先治理", en: "Critical segments for priority action" },
         ],
       },
       {
@@ -265,6 +266,9 @@ export const projects = [
     ],
   },
 ];
+
+
+for (const p of refreshProjects.filter(item => item.id >= 4)) projects.push({id:p.id,slug:p.key,title:p.title,color:p.id===4?'#ac83ff':'#8b7dff',accent:'violet',year:'2026',url:p.url,short:p.headline,summary:p.context,tags:p.id===4?['Brand Strategy','AI Creative','Campaign']:['Search Ads','Evidence','Experiment'],role:p.role,signal:[{value:'04',zh:'功能环节',en:'Workflow stages'}],stages:{zh:p.steps.map(s=>s.label.zh),en:p.steps.map(s=>s.label.en)},stageDetails:p.steps.map(s=>({...s.detail,metaZh:'产品原型',metaEn:'Product prototype'})),metrics:[],chapters:[]});
 
 export const journey = [
   {

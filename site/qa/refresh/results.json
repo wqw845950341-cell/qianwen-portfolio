@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4200/",
+  "checks": [
+    "Five projects, updated destinations, functional category filtering and sans-serif typography",
+    "Teddi and RedLens case routes, media selection, workflow stages and embedded working RedLens prototype",
+    "Existing three case routes retained; HCMC uses its current GitHub Pages URL",
+    "Command search finds new projects; six responsive widths; mobile menu and English version"
+  ],
+  "demos": [
+    "https://wqw845950341-cell.github.io/teddi-lab-portfolio/",
+    "http://127.0.0.1:4200/demos/redlens/index.html",
+    "https://www.coze.cn/store/agent/7674848296376221738?bot_id=true",
+    "https://wqw845950341-cell.github.io/posturepal-portfolio/",
+    "https://wqw845950341-cell.github.io/HCMC-Street-Greening-Dashboard/"
+  ],
+  "errors": []
+}

@@ -1,3 +1,4 @@
+import { RefreshedHome, AddedCase } from './PortfolioRefresh.jsx';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDown,
@@ -288,7 +289,7 @@ function Header({ view, navigate, lang, setLang, theme, setTheme, openCommand, m
           <button
             key={`${target}-${label}`}
             className={((view === target) || (view === "project" && target === "home")) && label !== "Contact" ? "active" : ""}
-            onClick={() => navigate(target, label === "Contact" ? "contact" : undefined)}
+            onClick={() => navigate(target, label === "Contact" ? "contact" : label === "Work" ? "selected-work" : undefined)}
           >
             {label}
           </button>
@@ -540,7 +541,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
   const liveProjectUrl = project.id === 1
     ? "https://www.coze.cn/store/agent/7674848296376221738?bot_id=true"
     : project.id === 3
-      ? "https://streetgreening-dashboard-site.vercel.app/"
+      ? "https://wqw845950341-cell.github.io/HCMC-Street-Greening-Dashboard/"
       : project.url;
   const postureProgress = [
     { en: "Context", zh: "问题洞察" },
@@ -873,7 +874,7 @@ function About({ lang, reducedMotion, theme, copyEmail, toast }) {
         <div><GlobeHemisphereWest size={27} weight="thin" /><span><strong>新加坡国立大学</strong><small>景观建筑硕士 · 2024.08—2026.06</small></span></div>
         <div><TreeStructure size={27} weight="thin" /><span><strong>南京林业大学</strong><small>风景园林本科 · 2020.09—2024.06</small></span></div>
         <div><Compass size={27} weight="thin" /><span><strong>中文 / English</strong><small>双语工作与沟通</small></span></div>
-        <a className="resume-button" href="/assets/Wang-Qianwen-Resume-CN.pdf" download><DownloadSimple size={20} />下载简历 <small>R</small></a>
+        <a className="resume-button" href={`${import.meta.env.BASE_URL}assets/Wang-Qianwen-Resume-CN.pdf`} download><DownloadSimple size={20} />下载简历 <small>R</small></a>
         <button className="copy-button" onClick={copyEmail}><Copy size={20} />复制邮箱 <small>C</small></button>
       </section>
       <section className="about-principles">
@@ -906,7 +907,7 @@ function CommandPalette({ lang, close, navigate, openProject, setLang, toggleThe
     { group: "ACTIONS", label: "Toggle day / night", key: "D", action: toggleTheme },
     { group: "ACTIONS", label: "Reduce motion", key: "M", action: toggleMotion },
     { group: "ACTIONS", label: "Sound on / off", key: "S", action: toggleSound },
-    { group: "ACTIONS", label: "Download resume", key: "R", action: () => { window.location.href = "/assets/Wang-Qianwen-Resume-CN.pdf"; } },
+    { group: "ACTIONS", label: "Download resume", key: "R", action: () => { window.location.href = `${import.meta.env.BASE_URL}assets/Wang-Qianwen-Resume-CN.pdf`; } },
     { group: "ACTIONS", label: "Copy email", key: "C", action: copyEmail },
   ].filter((row) => row.label.toLowerCase().includes(query.toLowerCase())), [query, lang, navigate, openProject, setLang, toggleTheme, toggleMotion, toggleSound, copyEmail]);
   const [selected, setSelected] = useState(0);
@@ -959,6 +960,7 @@ export function App() {
   const [view, setView] = useState("home");
   const [activeProject, setActiveProject] = useState(2);
   const [lang, setLang] = useState("zh");
+  useEffect(() => { document.documentElement.lang = lang === "zh" ? "zh-CN" : "en"; document.title = lang === "zh" ? "王芊文 | AI · 产品 · 数据 · 创意" : "Qianwen Wang | AI · Product · Data · Creative"; }, [lang]);
   const [theme, setTheme] = useState("dark");
   const [sound, setSound] = useState(false);
   const audioRef = useRef(null);
@@ -991,7 +993,7 @@ export function App() {
   useEffect(() => {
     const applyHash = () => {
       const hash = window.location.hash.replace("#", "");
-      if (hash.startsWith("work-")) { setActiveProject(Number(hash.split("-")[1]) || 1); setView("project"); }
+      if (hash.startsWith("work-")) { setActiveProject(Math.min(5, Math.max(1, Number(hash.split("-")[1]) || 1))); setView("project"); }
       else if (["journey", "ai", "notes", "about"].includes(hash)) setView(hash);
       else setView("home");
     };
@@ -1014,13 +1016,13 @@ export function App() {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); setCommandOpen((value) => !value); return; }
       if (event.key === "Escape") { setCommandOpen(false); setMenuOpen(false); return; }
       if (typing || commandOpen) return;
-      if (["1", "2", "3"].includes(event.key)) { const id = Number(event.key); setActiveProject(id); if (view === "project") openProject(id); }
+      if (["1", "2", "3", "4", "5"].includes(event.key)) { const id = Number(event.key); setActiveProject(id); if (view === "project") openProject(id); }
       if (event.key.toLowerCase() === "l") setLang((value) => value === "zh" ? "en" : "zh");
       if (event.key.toLowerCase() === "d") setTheme((value) => value === "dark" ? "light" : "dark");
       if (event.key.toLowerCase() === "m") setReducedMotion((value) => !value);
       if (event.key.toLowerCase() === "s") setSound((value) => !value);
       if (event.key.toLowerCase() === "c" && view === "about") copyEmail();
-      if (event.key.toLowerCase() === "r" && view === "about") window.location.href = "/assets/Wang-Qianwen-Resume-CN.pdf";
+      if (event.key.toLowerCase() === "r" && view === "about") window.location.href = `${import.meta.env.BASE_URL}assets/Wang-Qianwen-Resume-CN.pdf`;
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -1040,8 +1042,9 @@ export function App() {
     <div className={`app theme-${theme} ${reducedMotion ? "reduced-motion" : ""}`}>
       <audio ref={audioRef} src={`${import.meta.env.BASE_URL}assets/time-machine.mp3`} loop preload="none" />
       <Header view={view} navigate={navigate} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} openCommand={() => setCommandOpen(true)} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      {view === "home" && <Home lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
-      {view === "project" && <CaseStudy project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
+      {view === "home" && <RefreshedHome lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
+      {view === "project" && activeProject < 4 && <CaseStudy project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
+      {view === "project" && activeProject >= 4 && <AddedCase id={activeProject} lang={lang} openProject={openProject} navigate={navigate}/>}
       {view === "journey" && <Journey lang={lang} reducedMotion={reducedMotion} theme={theme} />}
       {view === "ai" && <AICapabilities lang={lang} reducedMotion={reducedMotion} theme={theme} openProject={openProject} />}
       {view === "notes" && <Notes lang={lang} reducedMotion={reducedMotion} theme={theme} />}

@@ -38,3 +38,15 @@
 - P3: source and implementation use different viewport ratios, so exact line breaks differ while hierarchy and collision-free behavior are preserved.
 
 final result: passed
+
+## Live-site refresh — 2026-11-05
+
+Latest user direction supersedes the particle-led homepage. Source: supplied CodeCraft-style screenshot, retained locally in `references/refresh/style-reference.png`. Baseline: `references/refresh/original-live.png`. The redesigned homepage preserves existing internal routes and adds Teddi Lab and RedLens.
+
+Visual evidence: `qa/refresh/desktop-top.png` at 1440×1000, `mobile-top.png` at 390×844, project-grid and both added-case captures. `style-comparison.png` combines source and implementation hero regions at normalized 720 px width. Typography, navy/violet tokens, spacing, image quality and copy were reviewed. Own project imagery intentionally replaces the reference's portrait; actual project counts and methods replace unsupported client/experience statistics and skill percentages. Chinese and English use a sans-serif stack; the old serif font has been removed.
+
+Functional browser checks in `qa/refresh/results.json` pass: five projects, real category filters, current demo links, Teddi/RedLens routes, media and stage selection, embedded RedLens diagnosis, original three case routes, command search, English and mobile menu. No page overflow at 320/390/760/946/1100/1440 px. No recorded console or HTTP errors. The original animated cases use explicit DOM readiness because ongoing resources can delay network-idle. Build and four protected hosting checks pass.
+
+No actionable P0/P1/P2 findings remain in the reviewed refresh. P3: the retained original case pages have more extensive interactive layouts than the new card-led homepage. Physical-device Safari/Firefox were not tested. GitHub publication is explicitly requested and uses the existing Pages workflow.
+
+final result: passed

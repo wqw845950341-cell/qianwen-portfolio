@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500&display=swap");
 
 :root {
   color-scheme: dark;
   font-family: "Inter", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
-  --display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --display: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --bg: #03050b;
   --surface: rgba(8, 11, 19, 0.88);
   --surface-solid: #090c14;
