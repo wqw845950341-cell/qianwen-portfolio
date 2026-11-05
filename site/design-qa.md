@@ -79,3 +79,15 @@ Required fidelity surfaces: the requested sans-serif/黑体 stack and original h
 Verification: `qa/five-nebulae/results.json` records five-center hit tests, five-project selection, shared case routes and tabs, workflow and chapter interactions, galleries, supplied video playback, cross-project stage reset, command search, six viewport widths, mobile demo links, bilingual/light theme controls, live Canvas frames and zero page/network errors. Production build and all four existing hosting tests passed. Physical-device Safari/Firefox were not tested.
 
 final result: passed
+
+## Teddi complete campaign image — 2026-11-05
+
+Source: the user-selected Campaign Rollout board at `https://wqw845950341-cell.github.io/teddi-lab-portfolio/?lang=en`, captured as a complete `.rollout-board` element into `public/assets/teddi-rollout.png` (2480×1982, deviceScaleFactor 2, 1240 CSS px wide). `qa/teddi-rollout/source.json` confirms all eight table rows, unclipped table width, full heading and final footnote. The WebP derivative preserves identical pixel dimensions.
+
+Implementation: `qa/teddi-rollout/case.png`, `gallery.png` (desktop page width 1440 CSS px; viewport height 1800 for an unobstructed element capture), and `mobile-gallery.png` (390×844 viewport). `comparison.png` places the source and rendered gallery together at proportional scale; both show the complete heading, four weeks, learning-signals row and footnote. Actual rendered image ratio was checked against the source ratio, with no crop or height cap on the rollout image.
+
+Iteration: an initial QA element screenshot was obscured by the portfolio's fixed navigation, although the source image itself was complete. The follow-up capture uses a taller viewport with the gallery below fixed navigation, and confirms the full image in context. No UI masking was used in the implementation capture. Fonts, layout, palette and image content match the real board; original site typography, five-nebula layout and project motion are preserved. The cover, first workflow preview and default artifact gallery all use the complete board, with visible links to the original-resolution PNG. Original video and other creative tabs remain accessible.
+
+Verification: `qa/teddi-rollout/results.json` records source dimensions, natural aspect ratio at four widths, working full-image link, video playback, RedLens image regression, and zero page/network errors. Build and four existing hosting tests passed. No actionable P0/P1/P2 findings remain.
+
+final result: passed

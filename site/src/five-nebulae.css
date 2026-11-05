@@ -8,3 +8,5 @@
 @media(prefers-reduced-motion:reduce){.extended-product-window{animation:none}}
 @media(min-width:760px){.home-screen .project-node-4{top:68%}}
 @media(max-width:759px){.case-extended .case-hero{min-height:0;padding-bottom:45px}.case-extended .case-visual{min-height:0;gap:20px}.case-extended .system-flow{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.case-extended .extended-project-system{height:290px}.case-extended .case-metrics strong{font-size:clamp(15px,4.8vw,25px)}}
+/* Preserve the entire rollout capture, including its first and final rows. */
+.extended-product-zoom{display:inline-flex;align-items:center;gap:4px;margin-left:auto;color:var(--accent);font-size:9px;white-space:nowrap}.extended-product-window>header:has(.extended-product-zoom)>span{margin-left:6px}.extended-media-image{display:block;color:var(--accent);background:var(--bg)}.extended-media-image>img{display:block;width:100%;height:auto;max-height:650px;object-fit:contain}.extended-media-image.rollout-asset>img{max-height:none}.extended-media-image>span{display:flex;justify-content:flex-end;align-items:center;gap:7px;padding:13px 20px;font-size:11px;border-top:1px solid var(--line)}

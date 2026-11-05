@@ -681,6 +681,17 @@ export const refreshProjects = [
     ],
     "media": [
       {
+        "id": "rollout",
+        "type": "image",
+        "src": "teddi-rollout.webp",
+        "full": "teddi-rollout.png",
+        "width": 2480,
+        "height": 1982,
+        "title": {"en": "Make room for you. Campaign rollout.", "zh": "Make room for you. 四周传播发布矩阵。"},
+        "label": {"en": "Complete campaign rollout", "zh": "完整传播发布矩阵"},
+        "caption": {"en": "The complete four-week proposal, including objectives, creative, channels, brand-owned support and learning signals. An unexecuted independent concept.", "zh": "完整四周提案：包含传播目标、创意内容、渠道、自有支持和观察信号。为尚未执行的独立策划概念。"}
+      },
+      {
         "id": "film",
         "type": "video",
         "src": "teddi-social-film.mp4",
@@ -760,7 +771,7 @@ export const refreshProjects = [
     ],
     "key": "teddi",
     "category": "Creative",
-    "image": "teddi-overview.webp"
+    "image": "teddi-rollout.webp"
   },
   {
     "id": 5,

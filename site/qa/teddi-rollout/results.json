@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4200/",
+  "geometry": {
+    "naturalWidth": 2480,
+    "naturalHeight": 1982,
+    "width": 1207.625,
+    "height": 965.125,
+    "maxHeight": "none"
+  },
+  "checks": [
+    "Complete 2480×1982 capture; title, eight table rows and bottom footnote included",
+    "New cover on home, hero and default artifact gallery",
+    "Native aspect ratio without crop or height cap at four widths",
+    "Full-resolution PNG opens successfully",
+    "Original Teddi video playback and RedLens image gallery preserved",
+    "No page or asset errors"
+  ],
+  "errors": []
+}

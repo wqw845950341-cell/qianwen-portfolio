@@ -818,7 +818,7 @@ export function HomeArtifact({ projectId, lang, active }) {
     <div className={`home-artifact home-artifact-${projectId} ${active ? "active" : ""}`}>
       {projectId === 1 && <><div className="home-ai-grid"><ChartBar size={24} /><span /><Sparkle size={20} weight="fill" /><span /><CheckCircle size={24} /></div><small>{lang === "zh" ? "诊断 → 建议 → 协同" : "Diagnose → recommend → coordinate"}</small></>}
       {projectId === 2 && <><img src={`${import.meta.env.BASE_URL}assets/posture-pose-amber.png`} alt="PosturePal pose visualization" /><span>32 min · aligned</span></>}
-      {projectId === 4 && <><img src={`${import.meta.env.BASE_URL}assets/teddi-overview.webp`} alt="Teddi Lab independent campaign concept"/><span>Independent campaign concept</span></>}
+      {projectId === 4 && <><img src={`${import.meta.env.BASE_URL}assets/teddi-rollout.webp`} alt="Teddi Lab complete four-week campaign rollout"/><span>Complete campaign rollout · 4 weeks</span></>}
       {projectId === 5 && <><img src={`${import.meta.env.BASE_URL}assets/redlens-preview.webp`} alt="RedLens commercial prototype"/><span>Search ads · Evidence · Experiment</span></>}
       {projectId === 3 && <><img src={`${import.meta.env.BASE_URL}assets/street-greening-dashboard.png`} alt="HCMC street greening dashboard" /><span>8,915 samples · A—E</span></>}
     </div>
