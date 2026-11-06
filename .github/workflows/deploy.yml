@@ -28,6 +28,8 @@ jobs:
         working-directory: site
       - run: npm run build
         working-directory: site
+      - run: npm run test:sites && npm run test:growth
+        working-directory: site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist/client

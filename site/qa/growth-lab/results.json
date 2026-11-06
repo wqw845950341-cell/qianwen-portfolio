@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4200/",
+  "checks": [
+    "Complete playable funnel, mismatch timer, gated claiming, session deduplication, A reset, JSON/CSV/SQL exports and cross-tab state",
+    "Synthetic cohorts, channel/variant filters, correct rates and percentage-point differences; no significance or commercial-outcome claims",
+    "Editable brief, factual two-hook/storyboard drafts, clipboard, channel adaptation, four review gates, stale-draft lock and reviewed Markdown export",
+    "Chinese/English, dark/light, reduced motion, six widths without horizontal overflow or header collisions",
+    "Five-nebula homepage preserved; mobile navigation, P shortcut, command search and AI/About/case cross-links; complete Teddi asset"
+  ],
+  "errors": []
+}

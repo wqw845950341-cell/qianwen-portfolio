@@ -91,3 +91,22 @@ Iteration: an initial QA element screenshot was obscured by the portfolio's fixe
 Verification: `qa/teddi-rollout/results.json` records source dimensions, natural aspect ratio at four widths, working full-image link, video playback, RedLens image regression, and zero page/network errors. Build and four existing hosting tests passed. No actionable P0/P1/P2 findings remain.
 
 final result: passed
+
+
+## AI × Growth Operations lab — 2026-11-06
+
+Source visual target: the published portfolio at commit `6168b2e`, captured directly into `qa/growth-lab/source-home.png`. This extends the user's approved dark particle system; there is no new source mockup or request to clone another layout. The original homepage and all five projects are retained. Source and final home captures use Chinese, dark theme, reduced motion, 1440×1000 CSS pixels, deviceScaleFactor 1, and decoded project images. `comparison-home.png` places them side by side; `comparison-navigation.png` compares readable navigation crops at native pixel density. Both combined inputs were opened for review. Adding Playground and tightening desktop navigation gaps are intentional; generative particle positions can vary between sessions.
+
+Rendered additions: `desktop.png`, `game.png`, `workflow.png`, `measurement.png`, `light.png`, `zh-game.png`, `mobile-playground.png`, `mobile-workflow.png`, `mobile-experiments.png`, and `mobile-game.png`. The latter show 390×844 mobile views. New lab panels are an intentional content extension using the existing black background, violet accents, hairline borders, real project artifacts and sans-serif/黑体 stack. Fixed navigation remains visible in scrolled captures; full-page initial exploratory captures are not the final comparison evidence.
+
+Review and fixes:
+- [P2, fixed] Custom briefs initially left hardcoded game text in the storyboard. Hooks, approved-information panel and objective now use the submitted brief; carousel/email structures also alter the prompt. Browser checks verify changed content, channel output and stale-draft lock.
+- [P2, fixed] Local session metrics initially used production-user terminology. Primary cards, funnel denominator and comparison rows now explicitly identify session counts, and missing negative-feedback data displays an em dash. Synthetic cohorts remain separately labeled.
+- [P2, fixed] Adding the About CTA changed an existing last-child copy selector. A targeted paragraph rule restores its original restrained width, typography and contrast. `final-about.png` verifies the original orbital composition and unobstructed new link.
+- Existing live-demo CTAs remain first, with the operations links below. Header, hero, five nebula labels, evidence slips and lower dock preserve the approved home composition.
+
+Fidelity surfaces: typography retains Inter plus Chinese sans-serif fallback, with large calm headings and compact panel labels; spacing uses the existing wide margins and bordered panel rhythm; colors retain original project identity plus the shared violet lab accent; Teddi's complete rollout and RedLens image retain their natural image content with contain sizing; copy explicitly separates prototype, fixture, template, proposed collaboration and verified results. No fabricated employment, endorsements, savings or growth claims were added. Screenshots show readable game state, review controls and metric hierarchy on desktop and mobile. No actionable P0/P1/P2 visual findings remain.
+
+Verification: `qa/growth-lab/results.json` records complete game flow with a mismatch, gated claiming, event deduplication, JSON/CSV/SQL downloads, correct filtered A/B arithmetic, clipboard, editable brief, four review gates, stale-draft protection, Markdown export, bilingual/light theme, six viewport widths, navigation/command links, and zero page/asset errors. Additional checks verified keyboard Space interaction and changing live Canvas frames when normal motion is enabled. Five model tests and four hosting tests pass, and production build succeeds. No real experiment, AI API call or live merchant integration was executed. Physical-device Safari/Firefox were not tested.
+
+final result: passed

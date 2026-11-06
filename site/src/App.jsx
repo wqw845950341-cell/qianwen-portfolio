@@ -1,4 +1,5 @@
 import { ExtendedProjectMedia } from './ExtendedProjectSystem';
+import { GrowthLab } from './GrowthLab';
 import { refreshProjects } from './refresh-data.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -278,6 +279,7 @@ function Header({ view, navigate, lang, setLang, theme, setTheme, openCommand, m
   const nav = [
     ["journey", "Journey"],
     ["home", "Work"],
+    ["playground", "Playground"],
     ["ai", "AI"],
     ["notes", "Notes"],
     ["about", "About"],
@@ -294,7 +296,7 @@ function Header({ view, navigate, lang, setLang, theme, setTheme, openCommand, m
         {nav.map(([target, label], index) => (
           <button
             key={`${target}-${label}`}
-            className={((view === target) || (view === "project" && target === "home")) && label !== "Contact" ? "active" : ""}
+            className={((view === target) || (view === "project" && target === "home") || (["workflow", "experiments"].includes(view) && target === "playground")) && label !== "Contact" ? "active" : ""}
             onClick={() => navigate(target, label === "Contact" ? "contact" : undefined)}
           >
             {label}
@@ -315,7 +317,7 @@ function Header({ view, navigate, lang, setLang, theme, setTheme, openCommand, m
       </div>
       {menuOpen && (
         <div className="mobile-menu">
-          {nav.slice(0, 5).map(([target, label]) => (
+          {nav.filter(([, label]) => label !== "Contact").map(([target, label]) => (
             <button key={label} onClick={() => { navigate(target); setMenuOpen(false); }}>{label}<ArrowRight size={18} /></button>
           ))}
           <button onClick={() => { openCommand(); setMenuOpen(false); }}>Command menu<Command size={18} /></button>
@@ -618,6 +620,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
           ) : (
             <button className="outline-cta small" onClick={() => navigate("notes")}>{lang === "zh" ? "查看项目思考" : "Read project notes"}<ArrowRight size={17} /></button>
           )}
+          {[1, 4, 5].includes(project.id) && <button className="case-ops-link" onClick={() => navigate(project.id === 4 ? "workflow" : "experiments")}>{lang === "zh" ? (project.id === 4 ? "查看 AI 创意工作流" : "查看指标与实验设计") : (project.id === 4 ? "Explore creative workflow" : "Explore measurement & tests")}<ArrowRight size={15} /></button>}
         </section>
 
         <section className="case-visual">
@@ -742,7 +745,7 @@ function Journey({ lang, reducedMotion, theme }) {
   );
 }
 
-function AICapabilities({ lang, reducedMotion, theme, openProject }) {
+function AICapabilities({ lang, reducedMotion, theme, openProject, navigate }) {
   const [selected, setSelected] = useState(0);
   const capability = AI_CAPABILITIES[selected];
   const projectEvidence = [
@@ -757,6 +760,7 @@ function AICapabilities({ lang, reducedMotion, theme, openProject }) {
         <span className="eyebrow">AI CAPABILITY / 04 LAYERS</span>
         <h1>{lang === "zh" ? <>不是把 AI 当作功能，<br />而是把它设计成可验证的系统。</> : <>AI is not a feature.<br />It is a system to validate.</>}</h1>
         <p>{lang === "zh" ? "从问题定义、模型链路到交互原型与评估指标，连接技术能力和真实使用场景。" : "From problem framing and model pipelines to interactive prototypes and evaluation metrics."}</p>
+        <button className="ai-ops-cta" onClick={() => navigate("workflow")}>{lang === "zh" ? "试用可复用的 AI 内容工作流" : "Try the reusable creative workflow"}<ArrowRight size={16} /></button>
       </section>
       <section className="ai-capability-nav" aria-label="AI capability layers">
         {AI_CAPABILITIES.map((item, index) => (
@@ -856,7 +860,7 @@ function ReadingSheet({ note, lang, onClose }) {
   );
 }
 
-function About({ lang, reducedMotion, theme, copyEmail, toast }) {
+function About({ lang, reducedMotion, theme, copyEmail, toast, navigate }) {
   const [selectedCapability, setSelectedCapability] = useState(0);
   const selected = capabilities[selectedCapability];
   return (
@@ -866,6 +870,7 @@ function About({ lang, reducedMotion, theme, copyEmail, toast }) {
         <h1>{lang === "zh" ? <>我喜欢把复杂的问题，<br />变成可以看见、理解和<br />使用的系统。</> : <>I turn complex questions<br />into systems people can see,<br />understand, and use.</>}</h1>
         <p className="about-en">I turn complex questions into systems people can see, understand, and use.</p>
         <p>{lang === "zh" ? "我连接数据、技术、空间观察与人的真实经验，在不确定中寻找结构与关系。通过实验、迭代与可视化，把想法落地成能够被使用、被验证、并持续进化的系统。" : "I connect data, technology, spatial observation, and lived experience—using experiments, iteration, and visualization to make ideas testable and useful."}</p>
+        <button className="about-ops-cta" onClick={() => navigate("playground")}>{lang === "zh" ? "查看 AI × 增长运营实验" : "Explore AI × growth operations"}<ArrowRight size={16} /></button>
       </section>
       <section className="capability-field">
         {capabilities.map((item, index) => (
@@ -908,6 +913,9 @@ function CommandPalette({ lang, close, navigate, openProject, setLang, toggleThe
   const rows = useMemo(() => [
     { group: "NAVIGATE", label: "Journey", key: "J", action: () => navigate("journey") },
     { group: "NAVIGATE", label: "Work", key: "W", action: () => navigate("home") },
+    { group: "NAVIGATE", label: "Playground / 互动实验", key: "P", action: () => navigate("playground") },
+    { group: "NAVIGATE", label: "AI Workflow / AI 工作流", key: "", action: () => navigate("workflow") },
+    { group: "NAVIGATE", label: "Measurement / 指标与实验", key: "", action: () => navigate("experiments") },
     { group: "NAVIGATE", label: "AI Capabilities", key: "I", action: () => navigate("ai") },
     { group: "NAVIGATE", label: "Notes", key: "N", action: () => navigate("notes") },
     { group: "NAVIGATE", label: "About / Contact", key: "A", action: () => navigate("about") },
@@ -968,7 +976,7 @@ export function App() {
   const mobile = useViewport();
   const [view, setView] = useState("home");
   const [activeProject, setActiveProject] = useState(2);
-  const [lang, setLang] = useState("zh");
+  const [lang, setLang] = useState(() => new URLSearchParams(window.location.search).get("lang") === "en" ? "en" : "zh");
   useEffect(() => { document.documentElement.lang = lang === "zh" ? "zh-CN" : "en"; document.title = lang === "zh" ? "王芊文 | AI · 产品 · 数据 · 创意" : "Qianwen Wang | AI · Product · Data · Creative"; }, [lang]);
   const [theme, setTheme] = useState("dark");
   const [sound, setSound] = useState(false);
@@ -1003,7 +1011,7 @@ export function App() {
     const applyHash = () => {
       const hash = window.location.hash.replace("#", "");
       if (hash.startsWith("work-")) { setActiveProject(Math.min(5, Math.max(1, Number(hash.split("-")[1]) || 1))); setView("project"); }
-      else if (["journey", "ai", "notes", "about"].includes(hash)) setView(hash);
+      else if (["journey", "ai", "notes", "about", "playground", "workflow", "experiments"].includes(hash)) setView(hash);
       else setView("home");
     };
     applyHash();
@@ -1021,10 +1029,11 @@ export function App() {
 
   useEffect(() => {
     const handler = (event) => {
-      const typing = ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName);
+      const typing = ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName);
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); setCommandOpen((value) => !value); return; }
       if (event.key === "Escape") { setCommandOpen(false); setMenuOpen(false); return; }
       if (typing || commandOpen) return;
+      if (event.key.toLowerCase() === "p") navigate("playground");
       if (["1", "2", "3", "4", "5"].includes(event.key)) { const id = Number(event.key); setActiveProject(id); if (view === "project") openProject(id); }
       if (event.key.toLowerCase() === "l") setLang((value) => value === "zh" ? "en" : "zh");
       if (event.key.toLowerCase() === "d") setTheme((value) => value === "dark" ? "light" : "dark");
@@ -1035,7 +1044,7 @@ export function App() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [commandOpen, copyEmail, openProject, view]);
+  }, [commandOpen, copyEmail, openProject, navigate, view]);
 
   const controls = {
     sound,
@@ -1054,9 +1063,10 @@ export function App() {
       {view === "home" && <Home lang={lang} activeProject={activeProject} setActiveProject={setActiveProject} openProject={openProject} navigate={navigate} controls={controls} mobile={mobile} />}
       {view === "project" && <CaseStudy key={activeProject} project={projects[activeProject - 1]} lang={lang} setProject={openProject} navigate={navigate} reducedMotion={reducedMotion} theme={theme} />}
       {view === "journey" && <Journey lang={lang} reducedMotion={reducedMotion} theme={theme} />}
-      {view === "ai" && <AICapabilities lang={lang} reducedMotion={reducedMotion} theme={theme} openProject={openProject} />}
+      {view === "ai" && <AICapabilities lang={lang} reducedMotion={reducedMotion} theme={theme} openProject={openProject} navigate={navigate} />}
+      {["playground", "workflow", "experiments"].includes(view) && <GrowthLab tab={view} lang={lang} navigate={navigate} openProject={openProject} reducedMotion={reducedMotion} theme={theme} />}
       {view === "notes" && <Notes lang={lang} reducedMotion={reducedMotion} theme={theme} />}
-      {view === "about" && <About lang={lang} reducedMotion={reducedMotion} theme={theme} copyEmail={copyEmail} toast={toast} />}
+      {view === "about" && <About lang={lang} reducedMotion={reducedMotion} theme={theme} copyEmail={copyEmail} toast={toast} navigate={navigate} />}
       {commandOpen && <CommandPalette lang={lang} close={() => setCommandOpen(false)} navigate={navigate} openProject={openProject} setLang={setLang} toggleTheme={() => setTheme((value) => value === "dark" ? "light" : "dark")} toggleMotion={() => setReducedMotion((value) => !value)} toggleSound={() => setSound((value) => !value)} copyEmail={copyEmail} />}
       {mobile && <MobileBottomNav view={view} navigate={navigate} openCommand={() => setCommandOpen(true)} />}
       {toast && view !== "about" && <div className="global-toast"><CheckCircle size={18} weight="fill" />邮箱已复制 / Email copied</div>}
