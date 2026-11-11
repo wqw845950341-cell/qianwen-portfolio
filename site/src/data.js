@@ -268,7 +268,7 @@ export const projects = [
 ];
 
 
-for (const p of refreshProjects.filter(item => item.id >= 4)) projects.push({id:p.id,slug:p.key,title:p.title,color:p.id===4?'#d99fc4':'#7bbbdc',accent:'violet',year:'2026',url:p.url,short:p.headline,summary:p.context,tags:p.id===4?['Brand Strategy','AI Creative','Campaign']:['Search Ads','Evidence','Experiment'],role:p.role,signal:[{value:'04',zh:'功能环节',en:'Workflow stages'}],stages:{zh:p.steps.map(s=>s.label.zh),en:p.steps.map(s=>s.label.en)},stageDetails:p.steps.map(s=>({...s.detail,metaZh:'产品原型',metaEn:'Product prototype'})),metrics:[],chapters:[]});
+for (const p of refreshProjects.filter(item => item.id >= 4)) projects.push({id:p.id,slug:p.key,title:p.title,color:p.color||(p.id===4?'#d99fc4':'#7bbbdc'),accent:'violet',year:'2026',url:p.url,short:p.headline,summary:p.context,tags:p.tags||(p.id===4?['Brand Strategy','AI Creative','Campaign']:['Search Ads','Evidence','Experiment']),role:p.role,signal:[{value:'04',zh:'功能环节',en:'Workflow stages'}],stages:{zh:p.steps.map(s=>s.label.zh),en:p.steps.map(s=>s.label.en)},stageDetails:p.steps.map(s=>({...s.detail,metaZh:'产品原型',metaEn:'Product prototype'})),metrics:[],chapters:[]});
 
 for(const p of refreshProjects.filter(p=>p.id>=4)) {
  const project=projects.find(item=>item.id===p.id);

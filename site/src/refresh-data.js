@@ -1,3 +1,4 @@
+import { citywalkProject } from './citywalk-project';
 // Verified project content and demo destinations, refreshed 2026-11-05.
 export const refreshProjects = [
   {
@@ -1002,3 +1003,4 @@ export const refreshProjects = [
     "image": "redlens-preview.webp"
   }
 ];
+refreshProjects.push(citywalkProject);

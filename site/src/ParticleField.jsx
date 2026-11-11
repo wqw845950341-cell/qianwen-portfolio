@@ -9,8 +9,8 @@ const PALETTES = {
 
 function centersFor(variant, width, height, activeProject) {
   if (variant === "home") {
-    const positions=width<760?[[.25,.40],[.73,.44],[.35,.51],[.24,.58],[.82,.56]]:[[.32,.61],[.68,.29],[.68,.69],[.27,.80],[.84,.48]];
-    const colors=[PALETTES.violet,PALETTES.amber,PALETTES.emerald,[217,159,196],[123,187,220]];
+    const positions=width<760?[[.25,.40],[.73,.44],[.35,.51],[.24,.58],[.82,.56],[.74,.35]]:[[.32,.61],[.68,.29],[.68,.69],[.27,.80],[.84,.48],[.55,.52]];
+    const colors=[PALETTES.violet,PALETTES.amber,PALETTES.emerald,[217,159,196],[123,187,220],[145,175,226]];
     return positions.map(([x,y],i)=>({x:width*x,y:height*y,color:colors[i],key:i+1}));
   }
   if (variant === "journey") {
@@ -37,7 +37,7 @@ function centersFor(variant, width, height, activeProject) {
       { x: width * 0.48, y: height * 0.53, color: PALETTES.violet, key: 4 },
     ];
   }
-  const colors = [PALETTES.violet, PALETTES.amber, PALETTES.emerald,[217,159,196],[123,187,220]];
+  const colors = [PALETTES.violet, PALETTES.amber, PALETTES.emerald,[217,159,196],[123,187,220],[145,175,226]];
   return [{ x: width * 0.61, y: height * 0.52, color: colors[activeProject - 1] || PALETTES.violet, key: activeProject }];
 }
 
@@ -257,5 +257,5 @@ export function ParticleField({
     };
   }, [variant, activeProject, reducedMotion, light, onSelectProject]);
 
-  return <canvas ref={canvasRef} className="particle-field" data-nebula-count={variant === "home" ? 5 : 1} aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="particle-field" data-nebula-count={variant === "home" ? 6 : 1} aria-hidden="true" />;
 }

@@ -127,7 +127,7 @@ const FIELD_NOTES = {
 
 for (const p of refreshProjects.filter(p => p.id >= 4)) FIELD_NOTES[p.id] = {
  problem:p.context, decision:p.approach, learned:p.id===4?{zh:"用同一主题连接不同场景，让每种内容形式承担明确任务。独立提案，尚未执行。",en:"One idea, with a clear job for each format. An independent, unexecuted proposal."}:{zh:"保留使用限制与缺失依据，结合成本、目标行为和体验衡量商业价值。",en:"Keep limitations visible; evaluate target actions, cost and user experience together."},
- impact:'4 steps',impactZh:p.id===4?'独立内容策划体系':'独立商业化产品原型',impactEn:p.id===4?'Independent content system':'Independent commercial prototype',evidence:p.id===4?'Campaign concept':'Working prototype'
+ impact:'4 steps',impactZh:p.id===6?'独立 AI 产品概念原型':p.id===4?'独立内容策划体系':'独立商业化产品原型',impactEn:p.id===6?'Independent AI product concept':p.id===4?'Independent content system':'Independent commercial prototype',evidence:p.id===4?'Campaign concept':'Working prototype'
 };
 
 const JOURNEY_CAPABILITY_AXES = [
@@ -509,7 +509,7 @@ function Home({ lang, activeProject, setActiveProject, openProject, navigate, co
       <aside className="interaction-legend" aria-label="Interaction hints">
         <p><Hand size={19} /><span>拖拽<br /><small>探索画布</small></span></p>
         <p><Compass size={19} /><span>滚轮<br /><small>切换景深</small></span></p>
-        <p><SquaresFour size={19} /><span>1 / 2 / 3 / 4 / 5<br /><small>快速切换项目</small></span></p>
+        <p><SquaresFour size={19} /><span>1 / 2 / 3 / 4 / 5 / 6<br /><small>快速切换项目</small></span></p>
         <p><Command size={18} /><span>⌘K<br /><small>打开命令面板</small></span></p>
       </aside>
 
@@ -529,7 +529,7 @@ function Home({ lang, activeProject, setActiveProject, openProject, navigate, co
           <button onClick={() => revealEvidence(active.id)}>{lang === "zh" ? "项目证据" : "Evidence"}<ArrowSquareOut size={17} /></button>
           <button onClick={() => openProject(active.id)}>{lang === "zh" ? "查看项目" : "View project"}<ArrowRight size={18} /></button>
         </div>
-        <div className="swipe-index">{projects.map((project) => <button key={project.id} className={project.id === active.id ? "active" : ""} onClick={() => setActiveProject(project.id)}>{project.id>=4?`0${project.id} ${project.id===4?"Teddi":"RedLens"}`:`0${project.id}`}</button>)}</div>
+        <div className="swipe-index">{projects.map((project) => <button key={project.id} className={project.id === active.id ? "active" : ""} onClick={() => setActiveProject(project.id)}>{project.id>=4?`0${project.id} ${project.id===4?"Teddi":project.id===5?"RedLens":"LaneMuse"}`:`0${project.id}`}</button>)}</div>
       </div>
 
       <BottomDock {...controls} />
@@ -620,6 +620,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
           ) : (
             <button className="outline-cta small" onClick={() => navigate("notes")}>{lang === "zh" ? "查看项目思考" : "Read project notes"}<ArrowRight size={17} /></button>
           )}
+          {project.id === 6 && <a className="case-ops-link" href="https://github.com/wqw845950341-cell/qianwen-portfolio/blob/main/citywalk/docs/PRD.md" target="_blank" rel="noreferrer">{lang === "zh" ? "阅读完整 PRD 与项目源码" : "Read PRD and source"}<ArrowSquareOut size={15}/></a>}
           {[1, 4, 5].includes(project.id) && <button className="case-ops-link" onClick={() => navigate(project.id === 4 ? "workflow" : "experiments")}>{lang === "zh" ? (project.id === 4 ? "查看 AI 创意工作流" : "查看指标与实验设计") : (project.id === 4 ? "Explore creative workflow" : "Explore measurement & tests")}<ArrowRight size={15} /></button>}
         </section>
 
@@ -665,7 +666,7 @@ function CaseStudy({ project, lang, setProject, navigate, reducedMotion, theme }
           {project.id === 3 && <StreetProgressField active={activeProgress} reducedMotion={reducedMotion} />}
           {project.chapters.map((chapter, index) => <button key={chapter.id} onClick={() => scrollToChapter(index)} className={index === activeProgress ? "active" : ""}><span>{project.id === 2 ? <><strong>{postureProgress[index]?.en}</strong><small>{postureProgress[index]?.zh}</small></> : project.id === 3 ? <><strong>{streetProgress[index]?.en}</strong><small>{streetProgress[index]?.zh}</small></> : chapter.label[lang]}</span><i /></button>)}
         </div>
-        <div className="case-hints"><span><CursorClick size={17} />{project.id === 1 ? (lang === "zh" ? "点击流程查看诊断逻辑" : "Inspect the diagnostic flow") : project.id === 2 ? (lang === "zh" ? "姿态关键点显示实时判断" : "Landmarks expose live reasoning") : project.id >= 4 ? (lang === "zh" ? "点击流程查看项目逻辑" : "Explore the project workflow") : (lang === "zh" ? "切换 Before / Strategy 情景" : "Toggle Before / Strategy")}</span><span><SquaresFour size={17} />1 / 2 / 3 / 4 / 5 {lang === "zh" ? "切换项目" : "switch projects"}</span><button onClick={() => scrollToChapter(0)}><ArrowDown size={17} />{lang === "zh" ? "滚动深入案例" : "Scroll into the case"}</button></div>
+        <div className="case-hints"><span><CursorClick size={17} />{project.id === 1 ? (lang === "zh" ? "点击流程查看诊断逻辑" : "Inspect the diagnostic flow") : project.id === 2 ? (lang === "zh" ? "姿态关键点显示实时判断" : "Landmarks expose live reasoning") : project.id >= 4 ? (lang === "zh" ? "点击流程查看项目逻辑" : "Explore the project workflow") : (lang === "zh" ? "切换 Before / Strategy 情景" : "Toggle Before / Strategy")}</span><span><SquaresFour size={17} />1 / 2 / 3 / 4 / 5 / 6 {lang === "zh" ? "切换项目" : "switch projects"}</span><button onClick={() => scrollToChapter(0)}><ArrowDown size={17} />{lang === "zh" ? "滚动深入案例" : "Scroll into the case"}</button></div>
       </section>
 
       <section className="case-depth">
@@ -1010,7 +1011,7 @@ export function App() {
   useEffect(() => {
     const applyHash = () => {
       const hash = window.location.hash.replace("#", "");
-      if (hash.startsWith("work-")) { setActiveProject(Math.min(5, Math.max(1, Number(hash.split("-")[1]) || 1))); setView("project"); }
+      if (hash.startsWith("work-")) { setActiveProject(Math.min(projects.length, Math.max(1, Number(hash.split("-")[1]) || 1))); setView("project"); }
       else if (["journey", "ai", "notes", "about", "playground", "workflow", "experiments"].includes(hash)) setView(hash);
       else setView("home");
     };
@@ -1034,7 +1035,7 @@ export function App() {
       if (event.key === "Escape") { setCommandOpen(false); setMenuOpen(false); return; }
       if (typing || commandOpen) return;
       if (event.key.toLowerCase() === "p") navigate("playground");
-      if (["1", "2", "3", "4", "5"].includes(event.key)) { const id = Number(event.key); setActiveProject(id); if (view === "project") openProject(id); }
+      if (projects.some(p => String(p.id) === event.key)) { const id = Number(event.key); setActiveProject(id); if (view === "project") openProject(id); }
       if (event.key.toLowerCase() === "l") setLang((value) => value === "zh" ? "en" : "zh");
       if (event.key.toLowerCase() === "d") setTheme((value) => value === "dark" ? "light" : "dark");
       if (event.key.toLowerCase() === "m") setReducedMotion((value) => !value);

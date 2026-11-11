@@ -21,11 +21,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-          cache-dependency-path: site/package-lock.json
+          cache-dependency-path: |
+            site/package-lock.json
+            citywalk/package-lock.json
       - run: npm ci
         working-directory: site
+      - run: npm ci
+        working-directory: citywalk
+      - run: npm run build
+        working-directory: citywalk
+      - run: node site/scripts/sync-citywalk.mjs
       - run: npm run build
         working-directory: site
       - run: npm run test:sites && npm run test:growth

@@ -7,7 +7,7 @@ const localized = (value, lang) => typeof value === 'string' ? value : value[lan
 
 export function ExtendedProjectSystem({ projectId, lang, selectedStage }) {
   const p = refreshProjects.find(p => p.id === projectId);
-  const images = projectId === 4
+  const images = projectId === 6 ? ['citywalk/settings.png','citywalk/route.png','citywalk/detail.png','citywalk/overview.png'] : projectId === 4
     ? ['teddi-rollout.webp', 'teddi-film-poster.webp', 'teddi-instagram.webp', 'teddi-tiktok.webp']
     : ['redlens-preview.webp', 'redlens-diagnosis.webp', 'redlens-fit.webp', 'redlens-preview.webp'];
 
